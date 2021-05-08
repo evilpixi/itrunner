@@ -58,7 +58,7 @@ class GameScene extends Phaser.Scene {
             }
         })
 
-        this.debugtext = this.add.text(20, 20, "pixi").setScrollFactor(0)
+        this.debugtext = this.add.text(20, 20, "").setScrollFactor(0)
     }
 
     createNewPlatform() {
@@ -81,10 +81,13 @@ class GameScene extends Phaser.Scene {
         this.cameras.main.scrollX = this.player.x -170
 
         // death
-        if (this.player.y > gHeight) this.scene.pause()//start("GameOverScene")
+        if (this.player.y > gHeight) {
+            if (debug) this.scene.pause()
+            else start("GameOverScene")
+        }
 
         // debug
-        this.debugtext.setText(`time:${time}\ndelta:${delta}\nplayerx: ${this.player.x}\ncameraX: ${this.cameras.main.scrollX}\nstatusSpeed: ${this.status.speed}\nplayerSpeed: ${this.player.body.velocity.x}`)
+        if (debug) this.debugtext.setText(`time:${time}\ndelta:${delta}\nplayerx: ${this.player.x}\ncameraX: ${this.cameras.main.scrollX}\nstatusSpeed: ${this.status.speed}\nplayerSpeed: ${this.player.body.velocity.x}`)
 
         // recycle elements
         for (let p of this.platformElements) {
