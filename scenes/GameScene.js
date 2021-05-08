@@ -58,6 +58,8 @@ class GameScene extends Phaser.Scene {
             }
         })
 
+        this.add.text(gWidth/2, gHeight/2, "CLICK TO JUMP").setScale(3)
+
         this.debugtext = this.add.text(20, 20, "").setScrollFactor(0)
     }
 
@@ -82,8 +84,12 @@ class GameScene extends Phaser.Scene {
 
         // death
         if (this.player.y > gHeight) {
-            if (debug) this.scene.pause()
-            else start("GameOverScene")
+            if (debug) {
+                this.scene.pause()
+            }
+            else {
+                this.scene.start("GameOverScene")
+            }
         }
 
         // debug
